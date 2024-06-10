@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Muestreo de Sardina</title>
+</head>
+
+<body onload="verificarContraseña()">
+    
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        section {
+            text-align: center;
+            margin: 5px auto;
+            display: flex; /* Use flexbox for horizontal alignment */
+            flex-wrap: wrap; /* Wrap buttons to next line when needed */
+            justify-content: space-between; /* Space buttons evenly */
+            align-items: center; /* Vertically align buttons */
+            gap: 5px; /* Add spacing between buttons */
+        }
+
+        .btn {
+            border: none;
+            background-color: #2babff;
+            padding: 2px;
+            border-radius: 5px;
+            font-size: 20px;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            width: 78px; /* Set button width */
+            height: 30px; /* Set button height */
+        }
+
+        .btn:hover {
+            background-color: #0003ff;
+        }
+
+        #totalClick {
+            font-size: 45px;
+            font-weight: 800;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+            margin: 10px;
+        }
+
+        .counter { /* Style for counter element */
+            font-size: 12px;
+            font-weight: bold;
+            /* Removed margin-left for better spacing */
+            margin-left: 10px; /* Add margin for spacing */
+        }
+        
+        body {
+  background-color: silver; /* Set background color to silver */
+}
+
+
+h2 {
+      text-align: center;
+      color: blue; /* Set color to a dark blue-ish shade */
+    }
+    /* Rest of your styles */
+
+
+header h2, h3 {
+            color: white;
+            line-height: 0;
+        }
+        
+        header {
+  background-color: #0003ff;
+  padding: 8px;
+  margin: 0px;
+}
+
+.palabra-con-sombra {
+  box-shadow: -10px -10px 10px rgba(0, 0, 0, 50.5);
+}
+.Morro {
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 50.5);
+}
+
+
+.palabra-con-sombra {
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+}
+
+.percentageRange1 {
+    color: red;
+}
+
+.percentageRange2 {
+    color: blue;
+}
+
+.cm {
+    margin: 0px;
+}
+
+.boton {
+    background-color: #0003ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.dm {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.blackbotton {
+    background-color: black;
+    color: white;
+    border-color: #0003ff;
+    border-radius: 5px;
+    height: 25px;
+}
+
+.minpesca {
+  position: absolute;
+  top: -5px;
+  left: 10px;
+  width: 95px;
+}
+
+.insopesca {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 70px;  
+}
+
+.sardina2 {
+  top: 550px;
+  right: 100px;
+  width: 130px;
+}
+
+}
+
+    </style>
+    
+    <div id="contenido" style="display: none;">
+        
+    <img src="./minpesca.png" alt="" class="minpesca">
+    <img src="./insopesca.png" alt="" class="insopesca">
+    
+<header>
+    <h2><center><b><span class="palabra-con-sombra">INSOPESCA</span></b></center></h2>
+    <h3><center><span class="Morro">(EL MORRO)</span></center></h3>
+</header>
+
+    <section>
+        <fieldset style="width: 310px;">
+            <legend><button id="btnLimpiar" class="dm">Datos del Muestreo</button></legend>
+            <label for="fecha">Fecha:</label>
+            <input type="datetime-local" id="fecha" name="fecha" required style="width: 200px;">
+            <br>
+            <label for="duenoEmbarcacion">Dueño y Embarcación:</label>
+            <input type="text" id="duenoEmbarcacion" name="duenoEmbarcacion" required style="width: 300px;">
+            <br>
+            <label for="responsableMuestreo">Responsable del Muestreo:</label>
+            <input type="text" id="responsableMuestreo" name="responsableMuestreo" required style="width: 300px;">
+            <br>
+            <label for="observaciones">Observaciones:</label>
+            <textarea id="observaciones" name="observaciones" style="width: 300px; height: 17px; font-size: 9px; font-family: 'sans-serif'; font-weight: bold;"></textarea>
+        </fieldset>
+
+        <button class="btn" data-size="12">12<span id="count12" class="counter">0</span></button>
+        <button class="btn" data-size="12.5">12.5<span id="count12.5" class="counter">0</span></button>
+        <button class="btn" data-size="13">13<span id="count13" class="counter">0</span></button>
+        <button class="btn" data-size="13.5">13.5<span id="count13.5"
+        class="counter">0</span></button>
+        <br>
+        <button class="btn" data-size="14">14<span id="count14" class="counter">0</span></button>
+        <button class="btn" data-size="14.5">14.5<span id="count14.5" class="counter">0</span></button>
+        <button class="btn" data-size="15">15<span id="count15" class="counter">0</span></button>
+        <button class="btn" data-size="15.5">15.5<span id="count15.5" class="counter">0</span></button>
+        <br>
+        <button class="btn" data-size="16">16<span id="count16" class="counter">0</span></button>
+        <button class="btn" data-size="16.5">16.5<span id="count16.5" class="counter">0</span></button>
+        <button class="btn" data-size="17">17<span id="count17" class="counter">0</span></button>
+        <button class="btn" data-size="17.5">17.5<span id="count17.5" class="counter">0</span></button>
+        <br>
+        <button class="btn" data-size="18">18<span id="count18" class="counter">0</span></button>
+        <button class="btn" data-size="18.5">18.5<span id="count18.5" class="counter">0</span></button>
+        <button class="btn" data-size="19">19<span id="count19" class="counter">0</span></button>
+        <button class="btn" data-size="19.5">19.5<span id="count19.5" class="counter">0</span></button>
+        <br>
+        <button class="btn" data-size="20">20<span id="count20" class="counter">0</span></button>
+        <button class="btn" data-size="20.5">20.5<span id="count20.5" class="counter">0</span></button>
+        <button class="btn" data-size="21">21<span id="count21" class="counter">0</span></button>
+        <button class="btn" data-size="21.5">21.5<span id="count21.5" class="counter">0</span></button>
+        <br>
+        <button class="btn" data-size="22">22<span id="count22" class="counter">0</span></button>
+        <button class="btn" data-size="22.5">22.5<span id="count22.5" class="counter">0</span></button>
+        <button class="btn" data-size="23">23<span id="count23" class="counter">0</span></button>
+        
+        <br>
+        <button id="btnClear" class="blackbotton">Limpiar</button>
+        <br> 
+      
+        <h1><span class="range-name"><b>TOTAL</b></span></h1>
+        <p id="totalClick">0</p>
+      
+<div>
+  <span class="range-name"><button class="boton"><b>≤15cm</b></button></span>
+  <p id="totalRango12-12.5-13-13.5-14-14.5-15-15.5" class="cm"></p>
+</div>
+        <div><span class="range-name"><button class="boton"><b>16cm</b></button></span>
+        <p id="totalRango16-16.5" class="cm"></p></div>
+        <div><span class="range-name"><button class="boton"><b>17cm</b></button></span>
+        <p id="totalRango17-17.5" class="cm"></p></div>
+        <div><span class="range-name"><button class="boton"><b>18cm</b></button></span>
+        <p id="totalRango18-18.5" class="cm"></p></div>
+        <div><span class="range-name"><button class="boton"><b>≥19cm</b></button></span>
+        <p id="totalRango19-19.5-20-20.5-21-21.5-22-22.5-23" class="cm"></p>
+    </div>
+    <br>
+    
+    <img src="./sardina2.png" alt="" class="sardina2">
+    
+<button id="btnCalcularPorcentajes" class="blackbotton">Porcentajes</button>
+
+<fieldset style="width: 310px;">
+            <legend><b>Porcentaje del Muestreo</b></legend>
+<div>
+  <span class="range-name"><button><b>(<17)</b></button></span>
+  <a id="totalRango12-12.5-13-13.5-14-14.5-15-15.5-16-16.5"></a>
+
+<span class="percentageRange1"><b id="percentageRange1"></b></span>
+
+
+
+  <span class="range-name">-/- <button><b>(≥17)</b></button></span></span>
+  <a id="totalRango17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23"></a>
+
+<span class="percentageRange2"><b id="percentageRange2"></b></span>
+</div>
+</fieldset>
+<p><h5><center>© Insopesca El Morro</center></h5></p>
+<p><h6><center>creativapaginaweb@gmail.com</center></h6></p>
+
+    <script type="text/javascript">
+        
+        // Get all buttons and counter elements
+        var buttons = document.querySelectorAll('button');
+        var counters = document.querySelectorAll('.counter');
+        var btnClear = document.getElementById('btnClear');
+        var totalElm = document.getElementById('totalClick');
+        var formInputs = document.querySelectorAll('input[type="text"], textarea');
+        
+        
+        // Create objects to store counts and ranges
+        var sizeCounts = {};
+        var sizeRanges = {
+            "12-12.5-13-13.5-14-14.5-15-15.5": 0,
+            "16-16.5": 0,
+            "17-17.5": 0,
+            "18-18.5": 0,
+ "19-19.5-20-20.5-21-21.5-22-22.5-23": 0,
+        
+            "12-12.5-13-13.5-14-14.5-15-15.5-16-16.5": 0,
+            "17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23": 0
+        };
+
+        // Button click handler with percentage calculation
+        buttons.forEach(function(button, index) {
+            button.onclick = function() {
+                var size = button.dataset.size;
+                var count = sizeCounts[size] || 0;
+                count++;
+                                // Update count in object, counter element, and total
+                sizeCounts[size] = count;
+                button.querySelector('.counter').textContent = count;
+                totalElm.textContent = parseInt(totalElm.textContent, 10) + 1;
+
+                // Update range counts
+                for (var range in sizeRanges) {
+                    if (range.includes(size)) {
+                        sizeRanges[range]++;
+                        document.getElementById('totalRango' + range).textContent = sizeRanges[range];
+                    }
+                }
+            }
+        });
+        
+        
+
+        // Clear all counters and ranges
+        btnClear.onclick = function() {
+            sizeCounts = {};
+            counters.forEach(function(counter) {
+                counter.textContent = 0;
+            });
+            totalElm.textContent = 0;
+
+            for (var range in sizeRanges) {
+                sizeRanges[range] = 0;
+                document.getElementById('totalRango' + range).textContent = 0;
+            }
+        };
+        
+        
+
+
+
+        function calculatePercentages() {
+            const totalCount = parseInt(totalElm.textContent);
+
+            // Calculate percentage for range "12-12.5-13-13.5-14-14.5-15-15.5-16-16.5"
+            const range1Count = sizeRanges["12-12.5-13-13.5-14-14.5-15-15.5-16-16.5"];
+            const percentageRange1 = (range1Count !== 0) ? (range1Count / totalCount) * 100 : 0; // Handle empty range
+
+            // Calculate percentage for range "17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23"
+            const range2Count = sizeRanges["17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23"];
+            const percentageRange2 = (range2Count !== 0) ? (range2Count / totalCount) * 100 : 0; // Handle empty range
+
+            // Update elements with percentages (toFixed(0) for two decimals)
+            const percentageElement1 = document.getElementById('percentageRange1');
+            percentageElement1.textContent = percentageRange1.toFixed(0) + '%';
+
+            const percentageElement2 = document.getElementById('percentageRange2');
+            percentageElement2.textContent = percentageRange2.toFixed(0) + '%';
+        }
+
+        const btnCalcularPorcentajes = document.getElementById('btnCalcularPorcentajes');
+
+        btnCalcularPorcentajes.onclick = function() {
+            // Update range counts based on button clicks (existing code)
+
+            // Call calculatePercentages after range updates
+            calculatePercentages();
+        };
+
+
+
+
+
+function limpiarFormulario() {
+  // Recorrer todos los campos de entrada
+  const inputs = document.querySelectorAll('input[type="text"]');
+  for (const input of inputs) {
+    input.value = "";
+  }
+
+  // Restablecer contadores en botones
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => counter.textContent = 0);
+
+  // Actualizar total
+  totalElm.textContent = 0;
+
+  // Restablecer rangos
+  for (const range in sizeRanges) {
+    sizeRanges[range] = 0;
+    document.getElementById('totalRango' + range).textContent = 0;
+  }
+}
+
+
+
+
+
+
+
+
+
+        function verificarContraseña() {
+            const contraseña = window.prompt("Introduzca la contraseña:", "");
+            if (contraseña === "mps115e") {
+                // Mostrar el contenido del archivo HTML
+                document.getElementById("contenido").style.display = "block";
+            }
+
+            if (contraseña === "20124815") {
+                // Mostrar el contenido del archivo HTML
+                document.getElementById("contenido").style.display = "block";
+            }
+        }
+        
+
+
+// Obtener el elemento del botón "Limpiar"
+const btnLimpiar = document.getElementById('btnLimpiar');
+
+// Oyente de eventos para el clic del botón "Limpiar"
+btnLimpiar.onclick = function() {
+  // Obtener todos los elementos del formulario dentro del "fieldset"
+  const fieldset = document.querySelector('fieldset');
+  const elementosFormulario = fieldset.querySelectorAll('input[type="text"], textarea');
+
+  // Restablecer el valor de cada elemento del formulario
+  elementosFormulario.forEach(function(elemento) {
+    elemento.value = '';
+  });
+
+  // **Añadir:**
+  // Obtener el elemento del campo de fecha
+  const fecha = document.getElementById('fecha');
+
+  // Restablecer el valor del campo de fecha
+  fecha.value = '';
+
+  // Restablecer contadores y totales (código existente en su script)
+  // ... su código existente para restablecer contadores y totales ...
+};
+
+    </script>
+
+</body>
+
+</html>
