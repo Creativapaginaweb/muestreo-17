@@ -1,488 +1,625 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta name="description" content="Insopesca es el ente encargado de regular, proteger y promover el desarrollo sostenible de la pesca y la acuicultura, garantizando el aprovechamiento responsable de los recursos y el bienestar de las comunidades vinculadas al sector.">
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Muestreo de Sardina</title>
-</head>
-
-<body onload="verificarContraseña()">
-    
     <style>
-        h1 {
-            text-align: center;
+        h1 { text-align: center; margin: 6px 0 4px 0; }
+        body {
+            background-color: silver;
+            display: flex;
+            justify-content: center;
         }
-
+        #contenido,
+        section,
+        fieldset,
+        .tallas-grid {
+            width: 100%;
+            min-width: 310px;
+            max-width: 420px;
+            box-sizing: border-box;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
         section {
             text-align: center;
             margin: 5px auto;
-            display: flex; /* Use flexbox for horizontal alignment */
-            flex-wrap: wrap; /* Wrap buttons to next line when needed */
-            justify-content: space-between; /* Space buttons evenly */
-            align-items: center; /* Vertically align buttons */
-            gap: 5px; /* Add spacing between buttons */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
         }
-
+        header {
+            position: relative;
+            background: radial-gradient(
+                ellipse at center,
+                #ffd6d6 0%,
+                #ff9a9a 35%,
+                #ff3b3b 65%,
+                #520000 100%
+            );
+            padding: 12px 16px;
+            min-height: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .header-logo {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 70px;
+            height: 70px;
+            z-index: 1;
+            opacity: 0.88;
+            pointer-events: none;
+            user-select: none;
+        }
+        .minpesca { left: 2px; width: 90px; height: 95px; }
+        .insopesca { right: 3px; }
+        .header-texto {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            pointer-events: auto;
+        }
+        header h2, header h3 {
+            margin: 0;
+            padding: 0;
+            line-height: 1.1;
+            color: white;
+            text-shadow:
+                3px 3px 12px #000,
+                0 0 6px #000,
+                0 0 2px #000,
+                2px 2px 2px #222;
+        }
+        .sardina2 { top: 550px; right: 100px; width: 130px; cursor: pointer; }
+        /* ---------- Tallas 12 al 23 ---------- */
         .btn {
             border: none;
-            background-color: #ff5f55;
+            background-color: #ff7455;
             padding: 2px;
             border-radius: 5px;
             font-size: 20px;
             font-weight: 800;
             color: white;
             cursor: pointer;
-            width: 78px; /* Set button width */
-            height: 30px; /* Set button height */
+            width: 78px;
+            height: 30px;
+            transition: background 0.18s;
+            text-shadow: 2px 2px 8px #000, 0 0 2px #000, 0 0 1px #000;
         }
-
-        .btn:hover {
-            background-color: red;
+        .btn:hover,
+        .btn:active,
+        .btn:focus {
+            background-color: #ff3f15;
+            color: #fff;
         }
-
+        .btn, .boton {
+            text-shadow: 2px 2px 8px #000, 0 0 2px #000, 0 0 1px #000;
+        }
+        .counter { font-size: 12px; font-weight: bold; margin-left: 10px; }
         #totalClick {
             font-size: 45px;
             font-weight: 800;
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
-            margin: 10px;
+            margin: 4px 0 3px 0;
         }
-
-        .counter { /* Style for counter element */
-            font-size: 12px;
-            font-weight: bold;
-            /* Removed margin-left for better spacing */
-            margin-left: 10px; /* Add margin for spacing */
-        }
-        
-        body {
-  background-color: silver; /* Set background color to silver */
-}
-
-
-h2 {
-      text-align: center;
-      color: blue; /* Set color to a dark blue-ish shade */
-    }
-    /* Rest of your styles */
-
-
-header h2, h3 {
+        .boton {
+            background: radial-gradient(ellipse at center, #ffd6d6 0%, #ff5f55 65%, #520000 100%);
             color: white;
-            line-height: 0;
+            border: none;
+            border-radius: 5px;
         }
-        
-        header {
-  background-color: red;
-  padding: 8px;
-  margin: 0px;
-}
-
-.palabra-con-sombra {
-  box-shadow: -10px -10px 10px rgba(0, 0, 0, 50.5);
-}
-
-.Morro {
-  box-shadow: 10px 10px 10px rgba(0, 0, 0, 50.5);
-}
-
-.palabra-con-sombra {
-  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
-}
-
-.percentageRange1 {
-    color: red;
-}
-
-.percentageRange2 {
-    color: blue;
-}
-
-.cm {
-    margin: 0px;
-}
-
-.boton {
-    background-color: red;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-.dm {
-    background-color: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-.blackbotton {
-    background-color: black;
-    color: white;
-    border-color: red;
-    border-radius: 5px;
-    height: 25px;
-}
-        
-.talla {
-    background-color: #262626ec;
-    color: white;
-    border-radius: 5px;
-}
-        
-.minpesca {
-  position: absolute;
-  top: -5px;
-  left: 10px;
-  width: 95px;
-}
-
-.insopesca {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  width: 70px;  
-}
-
-.sardina2 {
-  top: 550px;
-  right: 100px;
-  width: 130px;
-}
-
-}
-
+        .boton-porcentaje {
+            background: #181818;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            padding: 1px 10px;
+        }
+        .dm { background-color: black; color: white; border: none; border-radius: 5px; }
+        .blackbotton {
+            background-color: black;
+            color: white;
+            border-color: #520000;
+            border-radius: 5px;
+            height: 25px;
+            font-weight: 800;
+        }
+        .tallas-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+        .tallas-grid .btn,
+        .tallas-grid .blackbotton {
+            width: 100%;
+            min-width: unset;
+            max-width: unset;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        .accion-peq {
+            font-size: 15px !important;
+            font-weight: 700;
+            height: 25px;
+            padding: 2px 0;
+        }
+        section > div:not(.tallas-grid) {
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+        fieldset:last-of-type {
+            margin-top: 7px;
+        }
+        label { color: #444; }
+        .percentageRange1 { color: red; }
+        .percentageRange2 { color: blue; }
+        .cm { margin: 0px; }
+        header h2, header h3, .btn, .boton {
+            text-shadow:
+              3px 3px 12px #000,
+              0 0 6px #000,
+              0 0 2px #000,
+              2px 2px 2px #222;
+        }
+        #modalResponsables {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(40,60,44,0.20);
+            align-items: center;
+            justify-content: center;
+        }
+        #modalResponsables .cuadro {
+            background: #fff;
+            padding: 16px 18px;
+            border-radius: 8px;
+            min-width: 280px; max-width: 340px;
+            margin: auto;
+            font-size: 13px;
+            box-shadow: 0 8px 40px #0006;
+        }
+        #modalResponsables h4 {
+            margin-bottom: 10px; font-size: 14px;
+        }
+        .responsables-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px 12px;
+            margin-bottom: 13px;
+        }
+        .responsables-grid label {
+            display: flex;
+            align-items: center;
+            height: 27px;
+            padding-right: 4px;
+            font-size: 13px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+        .responsables-grid input[type=checkbox] {
+            margin-right: 7px;
+            flex-shrink: 0;
+        }
+        #modalResponsables .btn-modal {
+            font-size: 14px;
+            padding: 3px 16px;
+            margin-right: 8px;
+            border-radius: 5px;
+            border: none;
+            background: #75bb78;
+            color: #fff;
+            font-weight: bold;
+            transition: background 0.15s;
+        }
+        #modalResponsables .btn-modal:hover { background: #257725; }
+        #responsableMuestreo { cursor:pointer; background:#fff; }
+        .mini-obs-popup {
+            position: absolute;
+            background: #f7fff4;
+            border: 1px solid #cce9cd;
+            border-radius: 7px;
+            font-size: 13px;
+            padding: 8px 8px 8px 9px;
+            margin-top: 1px;
+            z-index: 1001;
+            display: none;
+            box-shadow: 0 2px 10px #3332;
+            min-width: 310px;
+            max-width: 330px;
+            text-align: left;
+        }
+        .mini-obs-popup label { margin-right: 4px; }
+        .mini-obs-popup input[type="text"],
+        .mini-obs-popup input[type="number"] {
+            width: 86px;
+            font-size: 13px;
+            margin-right: 7px;
+            padding: 2px 2px;
+            border-radius: 4px;
+            border: 1px solid #bbb;
+        }
+        .mini-obs-popup input[type="number"] { width: 54px; }
+        .mini-obs-popup .btn-mini {
+            font-size: 13px;
+            width: auto;
+            padding: 1px 9px;
+            border-radius: 4px;
+            height: 24px;
+            margin-right: 5px;
+            background: #ff5f55;
+            color: #fff;
+            border: none;
+        }
+        .mini-obs-popup .btn-mini:hover { background: #ffb3b3;}
     </style>
-    
+</head>
+<body onload="verificarContraseña()">
     <div id="contenido" style="display: none;">
-        
-    <img src="./minpesca.png" alt="" class="minpesca">
-    <img src="./insopesca.png" alt="" class="insopesca">
-    
-<header>
-    <h2><center><b><span class="palabra-con-sombra">INSOPESCA</span></b></center></h2>
-    <h3><center><span class="Morro">(EL MORRO 2025)</span></center></h3>
-</header>
-
-    <section>
-        <fieldset style="width: 310px;">
-            <legend><button id="btnLimpiar" class="dm">Datos del Muestreo</button></legend>
-            <label for="fecha">Fecha:</label>
-            <input type="datetime-local" id="fecha" name="fecha" required style="width: 200px;">
-            <br>
-            <label for="duenoEmbarcacion">Dueño y Embarcación:</label>
-            <input type="text" id="duenoEmbarcacion" name="duenoEmbarcacion" list="listaDuenoEmbarcacion" required style="width: 300px;">
-            <datalist id="listaDuenoEmbarcacion"></datalist>
-            <br>
-            <label for="responsableMuestreo">Responsable del Muestreo:</label>
-            <input type="text" id="responsableMuestreo" name="responsableMuestreo" required style="width: 300px;">
-            <br>
-            <label for="observaciones">Observaciones:</label>
-            <textarea id="observaciones" name="observaciones" style="width: 300px; height: 18px; font-size: 10px; font-family: 'sans-serif'; font-weight: bold; line-height: 0.9;"></textarea>
-        </fieldset>
-
-        <button class="btn" data-size="12">12<span id="count12" class="counter">0</span></button>
-        <button class="btn" data-size="12.5">12.5<span id="count12.5" class="counter">0</span></button>
-        <button class="btn" data-size="13">13<span id="count13" class="counter">0</span></button>
-        <button class="btn" data-size="13.5">13.5<span id="count13.5"
-        class="counter">0</span></button>
-        <br>
-        <button class="btn" data-size="14">14<span id="count14" class="counter">0</span></button>
-        <button class="btn" data-size="14.5">14.5<span id="count14.5" class="counter">0</span></button>
-        <button class="btn" data-size="15">15<span id="count15" class="counter">0</span></button>
-        <button class="btn" data-size="15.5">15.5<span id="count15.5" class="counter">0</span></button>
-        <br>
-        <button class="btn" data-size="16">16<span id="count16" class="counter">0</span></button>
-        <button class="btn" data-size="16.5">16.5<span id="count16.5" class="counter">0</span></button>
-        <button class="btn" data-size="17">17<span id="count17" class="counter">0</span></button>
-        <button class="btn" data-size="17.5">17.5<span id="count17.5" class="counter">0</span></button>
-        <br>
-        <button class="btn" data-size="18">18<span id="count18" class="counter">0</span></button>
-        <button class="btn" data-size="18.5">18.5<span id="count18.5" class="counter">0</span></button>
-        <button class="btn" data-size="19">19<span id="count19" class="counter">0</span></button>
-        <button class="btn" data-size="19.5">19.5<span id="count19.5" class="counter">0</span></button>
-        <br>
-        <button class="btn" data-size="20">20<span id="count20" class="counter">0</span></button>
-        <button class="btn" data-size="20.5">20.5<span id="count20.5" class="counter">0</span></button>
-        <button class="btn" data-size="21">21<span id="count21" class="counter">0</span></button>
-        <button class="btn" data-size="21.5">21.5<span id="count21.5" class="counter">0</span></button>
-        <br>
-        <button class="btn" data-size="22">22<span id="count22" class="counter">0</span></button>
-        <button class="btn" data-size="22.5">22.5<span id="count22.5" class="counter">0</span></button>
-        <button class="btn" data-size="23">23<span id="count23" class="counter">0</span></button>
-        
-        <br>
-        <button id="btnClear" class="blackbotton">Limpiar</button>
-        <br> 
-      
-        <h1><span class="range-name"><b>TOTAL</b></span></h1>
-        <p id="totalClick">0</p>
-      
-<div>
-  <span class="range-name"><button class="boton"><b>≤15cm</b></button></span>
-  <p id="totalRango12-12.5-13-13.5-14-14.5-15-15.5" class="cm"></p>
-</div>
-        <div><span class="range-name"><button class="boton"><b>16cm</b></button></span>
-        <p id="totalRango16-16.5" class="cm"></p></div>
-        <div><span class="range-name"><button class="boton"><b>17cm</b></button></span>
-        <p id="totalRango17-17.5" class="cm"></p></div>
-        <div><span class="range-name"><button class="boton"><b>18cm</b></button></span>
-        <p id="totalRango18-18.5" class="cm"></p></div>
-        <div><span class="range-name"><button class="boton"><b>≥19cm</b></button></span>
-        <p id="totalRango19-19.5-20-20.5-21-21.5-22-22.5-23" class="cm"></p>
+        <header>
+            <img src="./minpesca.png" alt="MinPesca" class="header-logo minpesca" />
+            <div class="header-texto">
+                <h2>
+                    <b><span class="palabra-con-sombra">INSOPESCA</span></b>
+                </h2>
+                <h3>
+                    <span class="Morro">(EL MORRO 2025)</span>
+                </h3>
+            </div>
+            <img src="./insopesca.png" alt="Insopesca" class="header-logo insopesca" />
+        </header>
+        <section>
+            <fieldset>
+                <legend><button id="btnLimpiar" class="dm">Datos del Muestreo</button></legend>
+                <label for="fecha">Fecha:</label>
+                <input type="datetime-local" id="fecha" name="fecha" required style="width: 200px;" />
+                <br />
+                <label for="duenoEmbarcacion">Dueño y Embarcación:</label>
+                <input type="text" id="duenoEmbarcacion" name="duenoEmbarcacion" list="listaDuenoEmbarcacion" required style="width: 300px;" />
+                <datalist id="listaDuenoEmbarcacion"></datalist>
+                <br />
+                <label for="responsableMuestreo">Responsable del Muestreo:</label>
+                <div style="position:relative;display:inline-block;width:300px">
+                  <input type="text" id="responsableMuestreo" name="responsableMuestreo" required style="width: 300px;" readonly autocomplete="off" />
+                </div>
+                <div id="modalResponsables">
+                  <div class="cuadro">
+                    <h4>Responsable(s): (máx. 3)</h4>
+                    <div class="responsables-grid" id="checkGridResp"></div>
+                    <button id="btnRespOK" type="button" class="btn-modal">Aceptar</button>
+                  </div>
+                </div>
+                <br />
+                <label for="observaciones">Observaciones:</label>
+                <div style="position:relative;display:inline-block;">
+                  <textarea id="observaciones" name="observaciones" style="width: 300px; height: 18px; font-size: 10px; font-family: 'sans-serif'; font-weight: bold; line-height: 0.9" autocomplete="off"></textarea>
+                  <div class="mini-obs-popup" id="popupObserva">
+                    <label>Norte de</label>
+                    <input type="text" id="obsZona" placeholder="Zona" />
+                    <label>Litros ⛽</label>
+                    <input type="number" min="0" id="obsLitros" placeholder="Litros" />
+                    <label>Lance</label>
+                    <input type="number" min="1" id="obsLance" placeholder="N°" style="width:34px;" />
+                    <label>Cajas</label>
+                    <input type="number" min="0" id="obsCajas" placeholder="Cajas" style="width:44px;" />
+                    <button type="button" id="aceptarObs" class="btn-mini">Aceptar</button>
+                  </div>
+                </div>
+            </fieldset>
+            <div class="tallas-grid">
+                <button class="btn" data-size="12">12<span id="count12" class="counter">0</span></button>
+                <button class="btn" data-size="12.5">12.5<span id="count12.5" class="counter">0</span></button>
+                <button class="btn" data-size="13">13<span id="count13" class="counter">0</span></button>
+                <button class="btn" data-size="13.5">13.5<span id="count13.5" class="counter">0</span></button>
+                <button class="btn" data-size="14">14<span id="count14" class="counter">0</span></button>
+                <button class="btn" data-size="14.5">14.5<span id="count14.5" class="counter">0</span></button>
+                <button class="btn" data-size="15">15<span id="count15" class="counter">0</span></button>
+                <button class="btn" data-size="15.5">15.5<span id="count15.5" class="counter">0</span></button>
+                <button class="btn" data-size="16">16<span id="count16" class="counter">0</span></button>
+                <button class="btn" data-size="16.5">16.5<span id="count16.5" class="counter">0</span></button>
+                <button class="btn" data-size="17">17<span id="count17" class="counter">0</span></button>
+                <button class="btn" data-size="17.5">17.5<span id="count17.5" class="counter">0</span></button>
+                <button class="btn" data-size="18">18<span id="count18" class="counter">0</span></button>
+                <button class="btn" data-size="18.5">18.5<span id="count18.5" class="counter">0</span></button>
+                <button class="btn" data-size="19">19<span id="count19" class="counter">0</span></button>
+                <button class="btn" data-size="19.5">19.5<span id="count19.5" class="counter">0</span></button>
+                <button class="btn" data-size="20">20<span id="count20" class="counter">0</span></button>
+                <button class="btn" data-size="20.5">20.5<span id="count20.5" class="counter">0</span></button>
+                <button class="btn" data-size="21">21<span id="count21" class="counter">0</span></button>
+                <button class="btn" data-size="21.5">21.5<span id="count21.5" class="counter">0</span></button>
+                <button class="btn" data-size="22">22<span id="count22" class="counter">0</span></button>
+                <button class="btn" data-size="22.5">22.5<span id="count22.5" class="counter">0</span></button>
+                <button class="btn" data-size="23">23<span id="count23" class="counter">0</span></button>
+                <button id="btnClear" class="blackbotton accion-peq">Limpiar</button>
+            </div>
+            <h1><span class="range-name"><b>TOTAL</b></span></h1>
+            <p id="totalClick">0</p>
+            <div>
+                <span class="range-name"><button class="boton"><b>≤15cm</b></button></span>
+                <p id="totalRango12-12.5-13-13.5-14-14.5-15-15.5" class="cm"></p>
+            </div>
+            <div>
+                <span class="range-name"><button class="boton"><b>16cm</b></button></span>
+                <p id="totalRango16-16.5" class="cm"></p>
+            </div>
+            <div>
+                <span class="range-name"><button class="boton"><b>17cm</b></button></span>
+                <p id="totalRango17-17.5" class="cm"></p>
+            </div>
+            <div>
+                <span class="range-name"><button class="boton"><b>18cm</b></button></span>
+                <p id="totalRango18-18.5" class="cm"></p>
+            </div>
+            <div>
+                <span class="range-name"><button class="boton"><b>≥19cm</b></button></span>
+                <p id="totalRango19-19.5-20-20.5-21-21.5-22-22.5-23" class="cm"></p>
+            </div>
+            <br />
+            <img src="./sardina2.png" alt="" class="sardina2" />
+            <fieldset>
+                <legend><b>Porcentaje del Muestreo</b></legend>
+                <div>
+                    <span class="range-name"><button class="boton-porcentaje"><b>(<17)</b></button></span>
+                    <a id="totalRango12-16.5"></a>
+                    <span class="percentageRange1"><b id="percentageRange1"></b></span>
+                    <span class="range-name">-/- <button class="boton-porcentaje"><b>(≥17)</b></button></span>
+                    <a id="totalRango17-23"></a>
+                    <span class="percentageRange2"><b id="percentageRange2"></b></span>
+                </div>
+            </fieldset>
+            <p>
+                <h5><center>© <a href="copyright.html">Insopesca El Morro</a></center></h5>
+            </p>
+            <p>
+                <h6><center>creativapaginaweb@gmail.com</center></h6>
+            </p>
+        </section>
     </div>
-    <br>
-    
-    <img src="./sardina2.png" alt="" class="sardina2">
-    
-<button id="btnCalcularPorcentajes" class="blackbotton">(%)</button>
+    <script>
+        // MODAL RESPONSABLES DOS COLUMNAS
+        const inputResp = document.getElementById('responsableMuestreo');
+        const modalResp = document.getElementById('modalResponsables');
+        const checkGrid = document.getElementById('checkGridResp');
+        const btnRespOK = document.getElementById('btnRespOK');
+        const responsables = [
+          "Alexander Alfonzo","Andreina Amarista",
+          "Emmanuel Manosalva","Johan Rosas",
+          "José Salazar","Juan Núñez",
+          "Juan Salazar","Luis Bastidas",
+          "Luis Narváez","Ricardo Sánchez",
+          "Rosannys González","Yessika Alfonzo"
+        ];
+        function openModalResp() {
+            checkGrid.innerHTML = '';
+            const current = inputResp.value.split(',').map(x=>x.trim()).filter(x=>x.length>0);
+            for(let i=0;i<responsables.length;i++) {
+                const label = document.createElement('label');
+                const chk = document.createElement('input');
+                chk.type = 'checkbox';
+                chk.value = responsables[i];
+                if(current.includes(responsables[i])) chk.checked = true;
+                chk.onchange = function() {
+                    let cks = checkGrid.querySelectorAll('input:checked');
+                    if(cks.length>3){
+                        chk.checked=false;
+                        alert('Máximo 3 responsables.');
+                    }
+                };
+                label.appendChild(chk);
+                label.appendChild(document.createTextNode(' ' + responsables[i]));
+                checkGrid.appendChild(label);
+            }
+            modalResp.style.display='flex';
+        }
+        btnRespOK.onclick = function() {
+            const seleccionados = Array.from(checkGrid.querySelectorAll('input:checked')).map(x=>x.value);
+            if(seleccionados.length==0){
+                alert("Selecciona al menos uno.");
+                return;
+            }
+            inputResp.value = seleccionados.join(', ');
+            modalResp.style.display='none';
+        };
+        inputResp.addEventListener('focus', openModalResp);
+        inputResp.addEventListener('click', openModalResp);
+        window.addEventListener('mousedown', function(e){
+            if(modalResp.style.display==='flex' && !modalResp.contains(e.target) && e.target!==inputResp){
+                modalResp.style.display='none';
+            }
+        });
+        // Mini-popup observaciones rápidas
+        const observa = document.getElementById('observaciones');
+        const popupObs = document.getElementById('popupObserva');
+        const aceptarObs = document.getElementById('aceptarObs');
+        let obsUltimoFueAceptar = false;
+        observa.addEventListener('focus', mostrarMiniObs);
+        observa.addEventListener('click', mostrarMiniObs);
+        function mostrarMiniObs() {
+            if (obsUltimoFueAceptar) {
+                obsUltimoFueAceptar = false;
+                return;
+            }
+            popupObs.style.display = "block";
+            popupObs.style.left = "0px";
+            popupObs.style.top = (observa.offsetHeight + 4) + "px";
+            document.getElementById('obsZona').focus();
+        }
+        aceptarObs.onclick = function () {
+            let zona = document.getElementById('obsZona').value.trim();
+            let litros = document.getElementById('obsLitros').value.trim();
+            let lance = document.getElementById('obsLance').value.trim();
+            let cajas = document.getElementById('obsCajas').value.trim();
+            let partes = [];
+            if(zona) partes.push("Norte de " + zona);
+            if(litros) partes.push(litros + " litros");
+            if(lance) partes.push("⛗ Lance " + lance);
+            if(cajas) partes.push("Cajas " + cajas);
+            let resultado = partes.join(', ');
+            if(resultado){
+                if(observa.value.trim()) {
+                    observa.value = observa.value.replace(/\s+$/, '') + "\n" + resultado;
+                } else {
+                    observa.value = resultado;
+                }
+            }
+            popupObs.style.display = 'none';
+            document.getElementById('obsZona').value="";
+            document.getElementById('obsLitros').value="";
+            document.getElementById('obsLance').value="";
+            document.getElementById('obsCajas').value="";
+            obsUltimoFueAceptar = true;
+        };
+        document.addEventListener('mousedown', function(e){
+            if(popupObs.style.display==='block' && !popupObs.contains(e.target) && e.target!==observa){
+                popupObs.style.display='none';
+            }
+        });
 
-<fieldset style="width: 310px;">
-            <legend><b>Porcentaje del Muestreo</b></legend>
-<div>
-  <span class="range-name"><button class="talla"><b>(<17)</b></button></span>
-  <a id="totalRango12-12.5-13-13.5-14-14.5-15-15.5-16-16.5"></a>
-
-<span class="percentageRange1"><b id="percentageRange1"></b></span>
-
-  <span class="range-name">-/- <button class="talla"><b>(≥17)</b></button></span></span>
-  <a id="totalRango17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23"></a>
-
-<span class="percentageRange2"><b id="percentageRange2"></b></span>
-</div>
-</fieldset>
-<p><h5><center>© <a href="copyright.html">Insopesca El Morro</a></center></h5></p>
-<p><h6><center>creativapaginaweb@gmail.com</center></h6></p>
-
-    <script type="text/javascript">
-        
-        // Get all buttons and counter elements
-        var buttons = document.querySelectorAll('button');
+        // Contadores y lógica de tallas y porcentajes
+        var buttons = document.querySelectorAll('button.btn');
         var counters = document.querySelectorAll('.counter');
         var btnClear = document.getElementById('btnClear');
         var totalElm = document.getElementById('totalClick');
-        var formInputs = document.querySelectorAll('input[type="text"], textarea');
-        
-        
-        // Create objects to store counts and ranges
         var sizeCounts = {};
         var sizeRanges = {
-            "12-12.5-13-13.5-14-14.5-15-15.5": 0,
-            "16-16.5": 0,
-            "17-17.5": 0,
-            "18-18.5": 0,
- "19-19.5-20-20.5-21-21.5-22-22.5-23": 0,
-        
-            "12-12.5-13-13.5-14-14.5-15-15.5-16-16.5": 0,
-            "17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23": 0
+            "12-16.5": ["12","12.5","13","13.5","14","14.5","15","15.5","16","16.5"],
+            "17-23": ["17","17.5","18","18.5","19","19.5","20","20.5","21","21.5","22","22.5","23"]
         };
-
-        // Button click handler with percentage calculation
-        buttons.forEach(function(button, index) {
-            button.onclick = function() {
+        const rango15 = ["12","12.5","13","13.5","14","14.5","15","15.5"];
+        const rango16 = ["16","16.5"];
+        const rango17 = ["17","17.5"];
+        const rango18 = ["18","18.5"];
+        const rango19 = ["19","19.5","20","20.5","21","21.5","22","22.5","23"];
+        var counts = { "12-16.5": 0, "17-23": 0 };
+        function actualizarContadoresRangos() {
+            counts["12-16.5"] = 0; counts["17-23"] = 0;
+            for(var size in sizeCounts){
+                if(sizeRanges["12-16.5"].includes(size)) counts["12-16.5"] += sizeCounts[size];
+                if(sizeRanges["17-23"].includes(size)) counts["17-23"] += sizeCounts[size];
+            }
+            document.getElementById('totalRango12-16.5').textContent = counts["12-16.5"];
+            document.getElementById('totalRango17-23').textContent = counts["17-23"];
+        }
+        function actualizarContadoresBotonesRango() {
+            let total15=0,total16=0,total17=0,total18=0,total19=0;
+            for(let size in sizeCounts){
+                if(rango15.includes(size)) total15 += sizeCounts[size];
+                if(rango16.includes(size)) total16 += sizeCounts[size];
+                if(rango17.includes(size)) total17 += sizeCounts[size];
+                if(rango18.includes(size)) total18 += sizeCounts[size];
+                if(rango19.includes(size)) total19 += sizeCounts[size];
+            }
+            document.getElementById('totalRango12-12.5-13-13.5-14-14.5-15-15.5').textContent = total15;
+            document.getElementById('totalRango16-16.5').textContent = total16;
+            document.getElementById('totalRango17-17.5').textContent = total17;
+            document.getElementById('totalRango18-18.5').textContent = total18;
+            document.getElementById('totalRango19-19.5-20-20.5-21-21.5-22-22.5-23').textContent = total19;
+        }
+        botonesTalla = document.querySelectorAll('button.btn');
+        botonesTalla.forEach(function(button){
+            button.onclick = function(){
                 var size = button.dataset.size;
-                var count = sizeCounts[size] || 0;
-                count++;
-                                // Update count in object, counter element, and total
-                sizeCounts[size] = count;
-                button.querySelector('.counter').textContent = count;
+                sizeCounts[size] = (sizeCounts[size] || 0) + 1;
+                button.querySelector('.counter').textContent = sizeCounts[size];
                 totalElm.textContent = parseInt(totalElm.textContent, 10) + 1;
-
-                // Update range counts
-                for (var range in sizeRanges) {
-                    if (range.includes(size)) {
-                        sizeRanges[range]++;
-                        document.getElementById('totalRango' + range).textContent = sizeRanges[range];
-                    }
-                }
-            }
+                actualizarContadoresRangos();
+                actualizarContadoresBotonesRango();
+                calculatePercentages();
+            };
         });
-        
-        // Clear all counters and ranges
-        btnClear.onclick = function() {
+        btnClear.onclick = function(){
             sizeCounts = {};
-            counters.forEach(function(counter) {
-                counter.textContent = 0;
-            });
+            counters.forEach(function(counter){ counter.textContent = 0; });
             totalElm.textContent = 0;
-
-            for (var range in sizeRanges) {
-                sizeRanges[range] = 0;
-                document.getElementById('totalRango' + range).textContent = 0;
-            }
-        };
-        
-        function calculatePercentages() {
-            const totalCount = parseInt(totalElm.textContent);
-
-            // Calculate percentage for range "12-12.5-13-13.5-14-14.5-15-15.5-16-16.5"
-            const range1Count = sizeRanges["12-12.5-13-13.5-14-14.5-15-15.5-16-16.5"];
-            const percentageRange1 = (range1Count !== 0) ? (range1Count / totalCount) * 100 : 0; // Handle empty range
-
-            // Calculate percentage for range "17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23"
-            const range2Count = sizeRanges["17-17.5-18-18.5-19-19.5-20-20.5-21-21.5-22-22.5-23"];
-            const percentageRange2 = (range2Count !== 0) ? (range2Count / totalCount) * 100 : 0; // Handle empty range
-
-            // Update elements with percentages (toFixed(0) for two decimals)
-            const percentageElement1 = document.getElementById('percentageRange1');
-            percentageElement1.textContent = percentageRange1.toFixed(0) + '%';
-
-            const percentageElement2 = document.getElementById('percentageRange2');
-            percentageElement2.textContent = percentageRange2.toFixed(0) + '%';
-        }
-
-        const btnCalcularPorcentajes = document.getElementById('btnCalcularPorcentajes');
-
-        btnCalcularPorcentajes.onclick = function() {
-            // Update range counts based on button clicks (existing code)
-
-            // Call calculatePercentages after range updates
+            counts["12-16.5"]=0; counts["17-23"]=0;
+            document.getElementById('totalRango12-16.5').textContent=0;
+            document.getElementById('totalRango17-23').textContent=0;
+            document.getElementById('totalRango12-12.5-13-13.5-14-14.5-15-15.5').textContent=0;
+            document.getElementById('totalRango16-16.5').textContent=0;
+            document.getElementById('totalRango17-17.5').textContent=0;
+            document.getElementById('totalRango18-18.5').textContent=0;
+            document.getElementById('totalRango19-19.5-20-20.5-21-21.5-22-22.5-23').textContent=0;
+            document.getElementById('percentageRange1').textContent='';
+            document.getElementById('percentageRange2').textContent='';
             calculatePercentages();
+            document.getElementById('fecha').value='';
+            document.getElementById('duenoEmbarcacion').value='';
+            document.getElementById('responsableMuestreo').value='';
+            document.getElementById('observaciones').value='';
+            document.getElementById('obsZona').value='';
+            document.getElementById('obsLitros').value='';
+            document.getElementById('obsLance').value='';
+            document.getElementById('obsCajas').value='';
         };
-
-function limpiarFormulario() {
-  // Recorrer todos los campos de entrada
-  const inputs = document.querySelectorAll('input[type="text"]');
-  for (const input of inputs) {
-    input.value = "";
-  }
-
-  // Restablecer contadores en botones
-  const counters = document.querySelectorAll('.counter');
-  counters.forEach(counter => counter.textContent = 0);
-
-  // Actualizar total
-  totalElm.textContent = 0;
-
-  // Restablecer rangos
-  for (const range in sizeRanges) {
-    sizeRanges[range] = 0;
-    document.getElementById('totalRango' + range).textContent = 0;
-  }
-}
-
-        function verificarContraseña() {
+        const btnLimpiar = document.getElementById('btnLimpiar');
+        btnLimpiar.onclick = function(){
+            document.getElementById('fecha').value='';
+            document.getElementById('duenoEmbarcacion').value='';
+            document.getElementById('responsableMuestreo').value='';
+            document.getElementById('observaciones').value='';
+            document.getElementById('obsZona').value='';
+            document.getElementById('obsLitros').value='';
+            document.getElementById('obsLance').value='';
+            document.getElementById('obsCajas').value='';
+        };
+        function calculatePercentages(){
+            const totalCount = parseInt(totalElm.textContent);
+            const percentageRange1 = totalCount > 0 ? (counts["12-16.5"] / totalCount) * 100 : 0;
+            const percentageRange2 = totalCount > 0 ? (counts["17-23"] / totalCount) * 100 : 0;
+            document.getElementById('percentageRange1').textContent = percentageRange1.toFixed(0) + '%';
+            document.getElementById('percentageRange2').textContent = percentageRange2.toFixed(0) + '%';
+        }
+        function verificarContraseña(){
             const contraseña = window.prompt("Introduzca la contraseña:", "");
-            if (contraseña === "mps115e") {
-                // Mostrar el contenido del archivo HTML
-                document.getElementById("contenido").style.display = "block";
-            }
-
-            if (contraseña === "20124815") {
-                // Mostrar el contenido del archivo HTML
+            if(contraseña === "mps115e" || contraseña === "20124815"){
                 document.getElementById("contenido").style.display = "block";
             }
         }
-        
-// Obtener el elemento del botón "Limpiar"
-const btnLimpiar = document.getElementById('btnLimpiar');
-
-// Oyente de eventos para el clic del botón "Limpiar"
-btnLimpiar.onclick = function() {
-  // Obtener todos los elementos del formulario dentro del "fieldset"
-  const fieldset = document.querySelector('fieldset');
-  const elementosFormulario = fieldset.querySelectorAll('input[type="text"], textarea');
-
-  // Restablecer el valor de cada elemento del formulario
-  elementosFormulario.forEach(function(elemento) {
-    elemento.value = '';
-  });
-
-  // **Añadir:**
-  // Obtener el elemento del campo de fecha
-  const fecha = document.getElementById('fecha');
-
-  // Restablecer el valor del campo de fecha
-  fecha.value = '';
-
-  // Restablecer contadores y totales (código existente en su script)
-  // ... su código existente para restablecer contadores y totales ...
-};
-
-// Array de Dueños y Embarcaciones sugeridos
-const duenosEmbarcaciones = [
-  "Adriana Carreño - Mis 4 Hijos",
-  "Albin Suárez - Andino IV",
-  "Alpidio Moreno - Miche Gollo",
-  "Ana Jiménez - El Isleño",
-  "Andy Bellorín - Doña Betty",
-  "Argelis León - Mi Valentina",
-  "Asdrúbal Vargas - Envidiame Más",
-  "Christian Velloni - Mis Negros",
-  "Cooperativa Gavilán - Unión de Mis Hijos",
-  "Delmar Villarroel - Derma I",
-  "Diannerys Salazar - Mamá Mirelys",
-  "Diorsy Fernández - Mi Valentina",
-  "Domingo Lugo - Los Pelones",
-  "Donny Montaño - Doña Francisca",
-  "Eglis Rodríguez - También Va",
-  "Emperatriz Gil - El Petaquero",
-  "Eugenis García - Yo y Mis 2 Hijos",
-  "Eunibis García - Urimare",
-  "Francisco Rodríguez - San Francisco",
-  "Germán R. Torres - Germancito",
-  "Germán Rodríguez - Germancito",
-  "Gerson Gómez - Doña Arinda",
-  "Henderson Navarro - Picho José",
-  "Hernán Salazar - Guaicaipuro",
-  "Ismael López - Unión IV",
-  "Jairo Gutiérrez - Morro Blanco I",
-  "Jesús Rivera - Yorako",
-  "Jesús Suárez - Divino Niño",
-  "Johan Brito - El Padre es Dios",
-  "José Lander - Los Mochitos",
-  "José Lugo - Mi Omaira",
-  "José Marval - Sigan Criticando",
-  "José Vásquez - El Pelícano",
-  "Juan Brito - Dios No Olvida",
-  "Kenny Gutiérrez - Quién Soy Yo",
-  "Lauriannys Brito - Jhogelvis",
-  "Liborio Peregrino - Mis 6 Hijos",
-  "Lino Jauri - Olofi (Aglai)",
-  "Lorenzo Rodríguez - El Carlin",
-  "Luis Marval - Doña Güicha",
-  "Luis Suárez - Llegó Chus",
-  "Manuel Álvarez - El Playero",
-  "Maribel Salazar - Lindo y Bello",
-  "Miguel Brito - Alcatraz",
-  "Miguel Navarro - El Cazador",
-  "Miraidis Rodríguez - Los Ojos de Dios",
-  "Mireglis Rodríguez - Mi Fe en Dios",
-  "Neptalí Marcano - Neplidis",
-  "Noel Lugo - Mi Norelvi",
-  "Obdulio Beroní - Eucelis Crismar",
-  "Octavio Brito - El Tavarín",
-  "Olaidys Carrillo - Yo Mismo Soy",
-  "Omar León - Constituyente",
-  "Ramona Salazar - Los Pelaos",
-  "Ramón Montaño - Elimar",
-  "Ramón Moreno - Don Alpidio",
-  "Ramón Rodríguez - El Japonés",
-  "Robert Cedeño - Doña Zuleida",
-  "Robert Montaño - Los Ciros",
-  "Rosa García - Mis 4 Hijos III",
-  "Sucesión Lugo de González - Mis 11 Hijos",
-  "Teresa Laffontt - La Yiyi",
-  "Tort Gutiérrez - Fuerza India"
-  // Agrega aquí más opciones si lo deseas
-];
-
-// Obtener el datalist
-const datalist = document.getElementById('listaDuenoEmbarcacion');
-
-// Llenar el datalist con las opciones del array
-duenosEmbarcaciones.forEach(function(item) {
-  const option = document.createElement('option');
-  option.value = item;
-  datalist.appendChild(option);
-});
-
+        const duenosEmbarcaciones = [
+            "Omar León - Constituyente", "Jesús Suárez - Divino Niño", "Andy Bellorín - Doña Betty",
+            "Luis Marval - Doña Güicha", "Lorenzo Rodríguez - El Carlin", "José Vásquez - El Pelícano",
+            "Manuel Álvarez - El Playero", "Ramón Montaño - Elimar", "Obdulio Beroní - Eucelis Crismar",
+            "Tort Gutiérrez - Fuerza India", "Germán R. Torres - Germancito", "Germán Rodríguez - Germancito",
+            "Hernán Salazar - Guaicaipuro", "Lauriannys Brito - Jhogelvis", "Luis Suárez - Llegó Chus",
+            "Miraidis Rodríguez - Los Ojos de Dios", "Rosa García - Mis 4 Hijos III", "Ramona Salazar - Los Pelaos",
+            "Domingo Lugo - Los Pelones", "José Lugo - Mi Omaira", "Diorsy Fernández - Mi Valentina",
+            "Alpidio Moreno - Miche Gollo", "Jairo Gutiérrez - Morro Blanco I", "Neptalí Marcano - Neplidis",
+            "Lino Jauri - Elohim", "Henderson Navarro - Picho José", "Miguel Navarro - El Cazador",
+            "Francisco Rodríguez - San Francisco", "Eglis Rodríguez - También Va", "Mireglis Rodríguez - Mi Fe en Dios",
+            "Ismael López - Unión IV", "Olaidys Carrillo - Yo Mismo Soy", "Kenny Gutiérrez - Quién Soy Yo",
+            "José Marval - Sigan Criticando", "Jesús Rivera - Yorako", "Asdrúbal Vargas - Envidiame Más",
+            "Donny Montaño - Doña Francisca", "Noel Lugo - Mi Norelvi", "Juan Brito - Dios No Olvida",
+            "Miguel Brito - Alcatraz", "Emperatriz Gil - El Petaquero", "Octavio Brito - El Tavarín",
+            "Johan Brito - El Padre es Dios", "Liborio Peregrino - Mis 6 Hijos", "Sucesión Lugo de González - Mis 11 Hijos",
+            "Adriana Carreño - Mis 4 Hijos", "Cooperativa Gavilán - Unión de Mis Hijos", "Eunibis García - Urimare",
+            "Eugenis García - Yo y Mis 2 Hijos", "Robert Montaño - Los Ciros", "Ana Jiménez - El Isleño",
+            "Diannerys Salazar - Mamá Mirelys", "Albin Suárez - Andino IV", "Delmar Villarroel - Derma I",
+            "Ramón Moreno - Don Alpidio", "Gerson Gómez - Doña Arinda", "Robert Cedeño - Doña Zuleida",
+            "Ramón Rodríguez - El Japonés", "José Lander - Los Mochitos", "Teresa Laffontt - La Yiyi",
+            "Argelis León - Mi Valentina", "Christian Velloni - Mis Negros", "Maribel Salazar - Lindo y Bello"
+        ];
+        const datalist = document.getElementById('listaDuenoEmbarcacion');
+        duenosEmbarcaciones.forEach(function(item){
+            const option = document.createElement('option');
+            option.value = item;
+            datalist.appendChild(option);
+        });
+        calculatePercentages();
     </script>
-    
     <!-- Aviso de Derechos de Autor y Propiedad Intelectual
 © Insopesca El Morro
 
@@ -501,7 +638,5 @@ Cláusula IV: Prohibición de Copia y Plagio
 Queda expresamente prohibida la copia, distribución, plagio o reproducción total o parcial del código fuente y su funcionalidad sin la autorización expresa de Emmanuel Manosalva. Toda infracción a esta disposición será considerada como una violación de los derechos de autor y podrá ser perseguida conforme a la ley.
 
 Este aviso se aplica a todos los usuarios, administradores y terceros relacionados con el sitio web. -->
-
 </body>
-
 </html>
