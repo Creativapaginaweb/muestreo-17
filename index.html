@@ -305,18 +305,27 @@
                 </div>
                 <br />
                 <label for="observaciones">Observaciones:</label>
-                <div style="position:relative;display:inline-block;">
-                  <textarea id="observaciones" name="observaciones" style="width: 300px; height: 18px; font-size: 10px; font-family: 'sans-serif'; font-weight: bold; line-height: 0.9" autocomplete="off"></textarea>
-                  <div class="mini-obs-popup" id="popupObserva">
-                    <label>Norte de</label>
-                    <input type="text" id="obsZona" placeholder="Zona" />
-                    <label>Litros ⛽</label>
-                    <input type="number" min="0" id="obsLitros" placeholder="Litros" />
-                    <label>Lance</label>
-                    <input type="number" min="1" id="obsLance" placeholder="N°" style="width:34px;" />
-                    <label>Cajas</label>
-                    <input type="number" min="0" id="obsCajas" placeholder="Cajas" style="width:44px;" />
-                    <button type="button" id="aceptarObs" class="btn-mini">Aceptar</button>
+        <div style="position:relative;display:inline-block;">
+          <textarea id="observaciones" name="observaciones" style="width: 300px; height: 18px; font-size: 10px; font-family: 'sans-serif'; font-weight: bold; line-height: 0.9" autocomplete="off"></textarea>
+          <div class="mini-obs-popup" id="popupObserva">
+            <label>Norte de</label>
+            <input type="text" id="obsZona" placeholder="Zona" />
+            <label>a</label>
+            <input type="text" id="obsMillas" placeholder="millas" />
+            <label>millas, </label>
+            <label>Litros ⛽</label>
+            <input type="number" min="0" id="obsLitros" placeholder="Litros" />
+            <label>Lance</label>
+            <input type="number" min="1" id="obsLance" placeholder="N°" style="width:34px;" />
+            <label>Cajas</label>
+            <input type="number" min="0" id="obsCajas" placeholder="Cajas" style="width:44px;" />
+            <label style="margin-left:6px;">
+                <input type="checkbox" id="obsRemuestreo" /> REMUESTREO
+            </label>
+            <input type="text" id="obsManual" placeholder="Observación" style="margin-left:8px;" />
+            <button type="button" id="limpiarObservacionPopup" class="btn-mini" style="background: #eee; color:#333; border:1px solid #bbb; margin-right:5px;">
+  Limpiar</button>            
+            <button type="button" id="aceptarObs" class="btn-mini">Aceptar</button>
                   </div>
                 </div>
             </fieldset>
@@ -445,52 +454,81 @@
             }
         });
         // Mini-popup observaciones rápidas
-        const observa = document.getElementById('observaciones');
-        const popupObs = document.getElementById('popupObserva');
-        const aceptarObs = document.getElementById('aceptarObs');
-        let obsUltimoFueAceptar = false;
-        observa.addEventListener('focus', mostrarMiniObs);
-        observa.addEventListener('click', mostrarMiniObs);
-        function mostrarMiniObs() {
-            if (obsUltimoFueAceptar) {
-                obsUltimoFueAceptar = false;
-                return;
-            }
-            popupObs.style.display = "block";
-            popupObs.style.left = "0px";
-            popupObs.style.top = (observa.offsetHeight + 4) + "px";
-            document.getElementById('obsZona').focus();
+const observa = document.getElementById('observaciones');
+const popupObs = document.getElementById('popupObserva');
+const aceptarObs = document.getElementById('aceptarObs');
+const limpiarObsBtn = document.getElementById('limpiarObservacionPopup');
+let obsUltimoFueAceptar = false;
+observa.addEventListener('focus', mostrarMiniObs);
+observa.addEventListener('click', mostrarMiniObs);
+
+function mostrarMiniObs() {
+    if (obsUltimoFueAceptar) {
+        obsUltimoFueAceptar = false;
+        return;
+    }
+    popupObs.style.display = "block";
+    popupObs.style.left = "0px";
+    popupObs.style.top = (observa.offsetHeight + 4) + "px";
+    document.getElementById('obsZona').focus();
+}
+aceptarObs.onclick = function () {
+    let zona = document.getElementById('obsZona').value.trim();
+    let millas = document.getElementById('obsMillas').value.trim();
+    let litros = document.getElementById('obsLitros').value.trim();
+    let lance = document.getElementById('obsLance').value.trim();
+    let cajas = document.getElementById('obsCajas').value.trim();
+    let remuestreo = document.getElementById('obsRemuestreo').checked;
+    let manual = document.getElementById('obsManual').value.trim();
+    let partes = [];
+    if(zona && millas) {
+        partes.push(`Norte de ${zona} a ${millas} millas`);
+    } else if(zona) {
+        partes.push(`Norte de ${zona}`);
+    } else if(millas) {
+        partes.push(`A ${millas} millas`);
+    }
+    if(litros) partes.push(`${litros} litros ⛽`);
+    if(lance) partes.push(`⛗ Lance ${lance}`);
+    if(cajas) partes.push(`Cajas ${cajas}`);
+    if(remuestreo) partes.push("REMUESTREO");
+    if(manual) partes.push(manual);
+
+    let resultado = partes.join(', ');
+    if(resultado){
+        if(observa.value.trim()) {
+            observa.value = observa.value.replace(/\s+$/, '') + "\n" + resultado;
+        } else {
+            observa.value = resultado;
         }
-        aceptarObs.onclick = function () {
-            let zona = document.getElementById('obsZona').value.trim();
-            let litros = document.getElementById('obsLitros').value.trim();
-            let lance = document.getElementById('obsLance').value.trim();
-            let cajas = document.getElementById('obsCajas').value.trim();
-            let partes = [];
-            if(zona) partes.push("Norte de " + zona);
-            if(litros) partes.push(litros + " litros");
-            if(lance) partes.push("⛗ Lance " + lance);
-            if(cajas) partes.push("Cajas " + cajas);
-            let resultado = partes.join(', ');
-            if(resultado){
-                if(observa.value.trim()) {
-                    observa.value = observa.value.replace(/\s+$/, '') + "\n" + resultado;
-                } else {
-                    observa.value = resultado;
-                }
-            }
-            popupObs.style.display = 'none';
-            document.getElementById('obsZona').value="";
-            document.getElementById('obsLitros').value="";
-            document.getElementById('obsLance').value="";
-            document.getElementById('obsCajas').value="";
-            obsUltimoFueAceptar = true;
-        };
-        document.addEventListener('mousedown', function(e){
-            if(popupObs.style.display==='block' && !popupObs.contains(e.target) && e.target!==observa){
-                popupObs.style.display='none';
-            }
-        });
+    }
+    popupObs.style.display = 'none';
+    // Limpiar campos del popup
+    document.getElementById('obsZona').value="";
+    document.getElementById('obsMillas').value="";
+    document.getElementById('obsLitros').value="";
+    document.getElementById('obsLance').value="";
+    document.getElementById('obsCajas').value="";
+    document.getElementById('obsRemuestreo').checked = false;
+    document.getElementById('obsManual').value="";
+    obsUltimoFueAceptar = true;
+};
+limpiarObsBtn.onclick = function() {
+    document.getElementById('obsZona').value="";
+    document.getElementById('obsMillas').value="";
+    document.getElementById('obsLitros').value="";
+    document.getElementById('obsLance').value="";
+    document.getElementById('obsCajas').value="";
+    document.getElementById('obsRemuestreo').checked = false;
+    document.getElementById('obsManual').value="";
+    popupObs.style.display = 'none';
+}
+document.addEventListener('mousedown', function(e){
+    if(popupObs.style.display==='block' && !popupObs.contains(e.target) && e.target!==observa){
+        popupObs.style.display='none';
+    }
+});
+
 
         // Contadores y lógica de tallas y porcentajes
         var buttons = document.querySelectorAll('button.btn');
